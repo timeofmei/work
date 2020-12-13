@@ -1,6 +1,7 @@
 import httpx
 from fake_useragent import UserAgent
 from lxml import etree
+import json
 base_url = "https://mag.fznews.com.cn/fzrb/2020"
 keywords = '黑臭 生活垃圾 内河整治 信访举报 生态环保督察 水资源保护 水域岸线管理 水污染防治 水环境治理 水生态修复 排污口 雨污口 截污管网 抽样监测 清淤 底泥'.split(
     ' ')
@@ -38,11 +39,14 @@ for date in finalls:
                 if word in content:
                     print(f'{word} detected')
                     urldict[f'{date}_{word}'] = url
-with open('content_fzrb.txt', 'w') as file:
+with open('content_fzrb.json', 'w') as file:
+    all_content = {}
     for key, url in urldict.items():
         headers = {'User-Agent': UserAgent().random}
         page = httpx.get(url, headers=headers)
         if page.status_code == 200:
-            file.write(f'{key} ')
-            file.write(getarticle(page))
-            file.write('\n\n')
+            all_content[key] = getarticle(page)
+    data = json.dumps(all_content, indent=4, separators=(
+        ',', ': '), ensure_ascii=False)
+    file.write(data)
+print('done')
