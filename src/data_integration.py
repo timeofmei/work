@@ -1,5 +1,7 @@
 import json
 import pandas as pd
+river_list = ['洪阵河', '龙津河', '陈厝河', '白湖亭河', '洋里溪', '竹屿河', '瀛洲河', '竹榄河', '大庆河', '台屿河', '淌洋河', '马洲支河', '君竹河', '飞凤河', '泮洋河', '文藻河', '打铁港', '东郊河',
+              '新透河', '济南河', '磨洋河', '红星河', '茶园河', '琴亭河', '三捷河', '跃进河', '半洋亭河', '洋下河', '牛浦河', '浦东河', '浦上河', '阳岐河', '光明港二支河', '潘墩河', '金港河', '达道河', '梅峰河', '吴山河']
 with open('data/content_wb.json') as file:
     data_wb = json.load(file)
 with open('data/content_fzrb.json') as file:
@@ -11,6 +13,7 @@ names = []
 articles = []
 times = []
 sources = []
+rivers = []
 for keyword, ids in data_wb.items():
     for content in ids.values():
         keywords.append(content['keyword'])
@@ -31,20 +34,36 @@ for time_keyword, content in data_fzrb.items():
 assert len(keywords) == len(names) == len(
     articles) == len(times) == len(sources)
 for keyword, biaotis in data_dnw.items():
-  for content in biaotis.values():
-    keywords.append(keyword)
-    names.append('东南网')
-    articles.append(content['biaoti'] + content['article'])
-    times.append(content['time'])
-    sources.append('东南网')
+    for content in biaotis.values():
+        keywords.append(keyword)
+        names.append('东南网')
+        articles.append(content['biaoti'] + content['article'])
+        times.append(content['time'])
+        sources.append('东南网')
+assert len(keywords) == len(names) == len(
+    articles) == len(times) == len(sources)
+for i in range(len(keywords)):
+    k = 0
+    for river in river_list:
+        if river in articles[i] or river in names[i]:
+            k += 1
+            try:
+                temp = rivers[i]
+                temp += f',{river}'
+                rivers[i] = temp
+            except IndexError:
+                rivers.append(river)
+    if k == 0:
+        rivers.append('未分类')
 assert len(keywords) == len(names) == len(
     articles) == len(times) == len(sources)
 all_content = {
-  '关键词': keywords,
-  '作者': names,
-  '正文': articles,
-  '时间': times,
-  '内容源': sources
+    '关键词': keywords,
+    '河流': rivers,
+    '作者': names,
+    '正文': articles,
+    '时间': times,
+    '内容源': sources
 }
 frame = pd.DataFrame(all_content)
 frame.to_csv('data/content_all.csv', encoding="utf_8_sig")
