@@ -93,7 +93,13 @@ for i in range(len(all_content['id'])):
     bizhongs[3] = ks[3] * 100 / reply_word_num
     all_content['tool_fazhi_bizhong'].append(f"{bizhongs[3]}%")
     if max(ks) > 0:
-        all_content['tool'].append(tools[bizhongs.index(max(bizhongs))])
+        if bizhongs.count(max(bizhongs)) == 1:
+            all_content['tool'].append(tools[bizhongs.index(max(bizhongs))])
+        else:
+            all_content['tool'].append('')
+            for idx in range(4):
+                if ks[idx] == max(ks):
+                    all_content['tool'][i] += f'{tools[idx]} '
     else:
         all_content['tool'].append('none')
 
