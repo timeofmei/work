@@ -4,7 +4,7 @@ data = pd.read_excel('data/诉求数据汇总.xlsx')
 headers = ['id', '标题', '投诉件内容', '回复1']
 keywords = {
     'litas': ['公交',  '监督',  '审批',   '小区',  '环境', '儿童',  '紧张',  '安全',
-              '隐患',  '护栏',  '散步', '乘凉', '规划', '报警',  '公园',  '违章搭盖', '身体健康'],
+              '隐患',  '护栏',  '散步', '乘凉', '规划', '报警',  '公园',  '违章搭盖', '身体健康', '完工', '工期'],
     'lijis': ['噪音', '堵', '异味', '污水', '臭水', '气味', '扰民', '损害', '通宵', '居民', '休息'],
     'shengtais': ['生态', '走廊', '景观', '百姓', '群众', '社会', '公众利益',
                   '执行力', '公信力', '监督', '旅游', '形象', '景点', '鸭鹅', '树木']
@@ -29,14 +29,14 @@ for i in range(len(all_content['id'])):
     if all == 0:
         all_content['guifan'].append('无')
     else:
-        ks['litas'] *= 11 * 15
-        ks['lijis'] *= 17 * 15
-        ks['shengtais'] *= 17 * 11
+        all_content['guifan'].append('')
+        ks['litas'] *= 1.1 * 1.5
+        ks['lijis'] *= 1.7 * 1.5
+        ks['shengtais'] *= 1.7 * 1.1
         kmax = max(ks.values())
         for k, v in ks.items():
-            if v == kmax:
-                all_content['guifan'].append(k)
-                break
-'''with open('data/content_suqiu_2.json', 'w') as file:
+            if v <= kmax + 1.5 and v >= kmax - 1.5:
+                all_content['guifan'][i] += f'{k} '
+with open('data/content_suqiu_2.json', 'w') as file:
     json_data = ujson.dumps(all_content, indent=4, ensure_ascii=False)
-    file.write(json_data)'''
+    file.write(json_data)
