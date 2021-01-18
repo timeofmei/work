@@ -1,6 +1,5 @@
 import httpx
-import json
-from fake_useragent import UserAgent
+import ujson
 from lxml import etree
 import re
 import time
@@ -9,6 +8,7 @@ keywords = '黑臭 生活垃圾 内河整治 信访举报 生态环保督察 水
     ' ')
 all_content = {}
 i = 0
+
 for keyword in keywords:
     print(keyword)
     all_content[f'{keyword}'] = {}
@@ -16,9 +16,9 @@ for keyword in keywords:
     for p in range(1, 501):
         print(p)
         url = f'{url}{p}'
-        headers = {'User-Agent': UserAgent().random}
+
         try:
-            page = httpx.get(url, headers=headers)
+            page = httpx.get(url)
         except:
             continue
         if page.status_code == 200:
@@ -41,7 +41,7 @@ for keyword in keywords:
                 content['link'] = title.xpath(
                     "./div[1]/p[2]/a[1]/@href")[0]
                 try:
-                    detail_page = httpx.get(content['link'], headers=headers)
+                    detail_page = httpx.get(content['link'])
                     if detail_page.status_code == 200:
                         print("OK")
                         root_detail = etree.HTML(detail_page.content)
@@ -58,8 +58,7 @@ for keyword in keywords:
                 all_content[keyword][content['biaoti']] = content
 
 
-with open('content_dnw.json', 'w') as file:
-    data = json.dumps(all_content, indent=4, separators=(
-        ',', ': '), ensure_ascii=False)
+with open('data/content_dnw.json', 'w') as file:
+    data = ujson.dumps(all_content, indent=4, ensure_ascii=False)
     file.write(data)
 print("done")

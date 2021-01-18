@@ -37,6 +37,6 @@ for i in range(len(all_content['id'])):
             if v == kmax:
                 all_content['guifan'].append(k)
                 break
-with open('data/content_suqiu_2.json', 'w') as file:
+'''with open('data/content_suqiu_2.json', 'w') as file:
     json_data = ujson.dumps(all_content, indent=4, ensure_ascii=False)
-    file.write(json_data)
+    file.write(json_data)'''
