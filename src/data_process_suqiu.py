@@ -4,7 +4,7 @@ import ujson
 import jieba
 jieba.initialize()
 data = pd.read_excel('data/诉求数据汇总.xlsx')
-headers = ['id', '标题', '投诉件内容', '回复1']
+headers = ['序列号', '标题', '投诉件内容', '回复1']
 
 trusts_highs = ['请', '尽快', '恳请', '协商', '支持', '希望', '处理', '扰民', '违法',
                 '法制', '恶劣', '违反', '严重影响', '及时', '制止', '方案', '查处', '调查', '重视']
@@ -32,7 +32,7 @@ all_content['tool_hezuo_cipin'] = []
 all_content['tool_hezuo_bizhong'] = []
 all_content['tool_fazhi_cipin'] = []
 all_content['tool_fazhi_bizhong'] = []
-for i in range(len(all_content['id'])):
+for i in range(len(all_content['序列号'])):
     ks = [0, 0, 0, 0]
     bizhongs = [0, 0, 0, 0]
     tools = ['xingzheng', 'xinxi', 'hezuo', 'fazhi']

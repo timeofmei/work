@@ -1,7 +1,7 @@
 import ujson
 import pandas as pd
 data = pd.read_excel('data/诉求数据汇总.xlsx')
-headers = ['id', '标题', '投诉件内容', '回复1']
+headers = ['序列号', '标题', '投诉件内容', '回复1']
 all_words = {
     '29比较认同': ['扰民', '施工单位', '隐患', '规范'],
     '29非常认同': ['偷工减料', '良心', '严查', '无良', '违反', '合同', '极差'],
@@ -15,7 +15,7 @@ for header in headers:
     all_content[header] = list(data[header])
 for k in all_words.keys():
     all_content[k] = []
-for i in range(len(all_content['id'])):
+for i in range(len(all_content['序列号'])):
     for key, value in all_words.items():
         all_content[key].append(0)
         for word in value:
