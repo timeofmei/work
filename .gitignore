@@ -1,4 +1,2 @@
 .DS_Store
-data/~$*.xlsx
-result/~$*.xlsx
-~$*.xlsx
+~$*.*
