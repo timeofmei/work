@@ -3,7 +3,7 @@ import jieba
 import math
 positive_words = ['请', '望', '此', '恳', '谢谢']
 negative_words = ['！', '!', '？', '?', '难道', '非', '怎么', '到底']
-df = pd.read_excel('data/诉求数据汇总.xlsx')
+df = pd.read_excel('data/新诉求数据.xlsx')
 timecha = df['最终回复-投诉事件'].tolist()
 pls = df['投诉件内容'].tolist()
 score_mood = []
