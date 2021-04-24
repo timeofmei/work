@@ -4,7 +4,7 @@ skr = mysql.connector.connect(
     user="root", host="127.0.0.1", port="3306", database="work")
 cursor = skr.cursor()
 add_item = "INSERT INTO suqiu_new (id, 性质, 标题, 区域, 信息来源, 时间, 诉求件内容, 内容长度, 河流, 匿名or实名, 回复1, 最终回复投诉事件, 回复长度, 转处理次数, 是否黑臭) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-with open('../data/result_suqiu_update.json') as file:
+with open('data/result_suqiu_update.json') as file:
     data = ujson.load(file)
 for i in range(1, len(data)+1):
     data_tuple = (str(i), data[str(i)]['性质'], data[str(i)]['标题'],

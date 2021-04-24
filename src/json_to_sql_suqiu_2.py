@@ -1,7 +1,7 @@
 import ujson
 import mysql.connector
 skr = mysql.connector.connect(
-    user="root", host="127.0.0.1", port="3306", database="work")
+    user="root", host="127.0.0.1", port="3306", database="work", password="P2001k10U11")
 cursor = skr.cursor()
 add_item = "INSERT INTO guifan (id, guifan) VALUES (%s, %s )"
 with open('data/content_suqiu_2.json') as file:

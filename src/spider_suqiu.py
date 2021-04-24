@@ -78,6 +78,6 @@ for i in range(1, 23):
         else:
             suqius[id]["是否黑臭"] = "yes"
 
-with open("../data/result_suqiu_update.json", "w") as f:
+with open("data/result_suqiu_update.json", "w") as f:
     f.write(ujson.dumps(suqius, ensure_ascii=False))
     print("done")

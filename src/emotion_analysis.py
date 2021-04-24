@@ -3,7 +3,7 @@ import math
 import pandas as pd
 positive_words = ['请', '望', '此', '恳', '谢谢']
 negative_words = ['！', '!', '？', '?', '难道', '非', '怎么', '到底']
-df = pd.read_excel('../data/新诉求数据.xlsx', sheet_name=['黑臭诉求'])
+df = pd.read_excel('data/新诉求数据.xlsx')
 timecha = df['最终回复-投诉事件'].tolist()
 pls = df['诉求件内容'].tolist()
 score_mood = []
