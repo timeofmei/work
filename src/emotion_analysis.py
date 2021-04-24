@@ -1,11 +1,11 @@
-import pandas as pd
 import jieba
 import math
+import pandas as pd
 positive_words = ['请', '望', '此', '恳', '谢谢']
 negative_words = ['！', '!', '？', '?', '难道', '非', '怎么', '到底']
-df = pd.read_excel('data/诉求数据汇总.xlsx')
+df = pd.read_excel('../data/新诉求数据.xlsx', sheet_name=['黑臭诉求'])
 timecha = df['最终回复-投诉事件'].tolist()
-pls = df['投诉件内容'].tolist()
+pls = df['诉求件内容'].tolist()
 score_mood = []
 score_time = []
 scorels = []
@@ -32,5 +32,5 @@ for i in range(len(timecha)):
 df['情感倾向'] = scorels
 df['内容分数_权值0.6'] = score_mood
 df['时间分数_权值0.4'] = score_time
-df.to_excel('情感结果.xlsx')
+df.to_excel('新情感结果.xlsx')
 print("done")

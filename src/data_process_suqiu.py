@@ -3,7 +3,7 @@ import math
 import ujson
 import jieba
 jieba.initialize()
-data = pd.read_excel('data/诉求数据汇总.xlsx')
+data = pd.read_excel('../data/新诉求数据.xlsx')
 headers = ['序列号', '标题', '投诉件内容', '回复1']
 
 trusts_highs = ['请', '尽快', '恳请', '协商', '支持', '希望', '处理', '扰民', '违法',
@@ -103,6 +103,6 @@ for i in range(len(all_content['序列号'])):
     else:
         all_content['tool'].append('none')
 
-with open('data/content_suqiu.json', 'w') as file:
+with open('some.json', 'w') as file:
     json_data = ujson.dumps(all_content, indent=4, ensure_ascii=False)
     file.write(json_data)
