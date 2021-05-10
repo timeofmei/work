@@ -1,6 +1,5 @@
-import ujson
 import pandas as pd
-data = pd.read_excel('data/新诉求数据.xlsx')
+data = pd.read_excel('data/诉求数据汇总.xlsx')
 headers = ['id', '标题', '投诉件内容', '回复1']
 keywords = {
     'litas': ['公交',  '监督',  '审批',   '小区',  '环境', '儿童',  '紧张',  '安全',
@@ -11,7 +10,9 @@ keywords = {
 }
 
 all_content = {}
-all_content['values'] = {}
+all_content['liji_score'] = []
+all_content['lita_score'] = []
+all_content['shengtai_score'] = []
 for header in headers:
     all_content[header] = list(data[header])
 all_content['guifan'] = []
@@ -29,17 +30,20 @@ for i in range(len(all_content['id'])):
                 all += 1
     if all == 0:
         all_content['guifan'].append('无')
-        all_content['values'][i] = ks
+        all_content['liji_score'].append(0)
+        all_content['lita_score'].append(0)
+        all_content['shengtai_score'].append(0)
     else:
         all_content['guifan'].append('')
         ks['litas'] *= 1.1 * 1.5
         ks['lijis'] *= 1.7 * 1.5
         ks['shengtais'] *= 1.7 * 1.1
-        all_content['values'][i] = ks
+        all_content['liji_score'].append(ks['lijis'])
+        all_content['lita_score'].append(ks['litas'])
+        all_content['shengtai_score'].append(ks['shengtais'])
         kmax = max(ks.values())
         for k, v in ks.items():
-            if v <= kmax + 1.5 and v >= kmax - 1.5:
+            if v == kmax:
                 all_content['guifan'][i] += f'{k} '
-with open('data/content_suqiu_6_new_t.json', 'w') as file:
-    json_data = ujson.dumps(all_content, indent=4, ensure_ascii=False)
-    file.write(json_data)
+df = pd.DataFrame(all_content)
+df.to_excel("hi.xlsx")

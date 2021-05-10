@@ -1,6 +1,5 @@
 import pandas as pd
 import math
-import ujson
 import jieba
 jieba.initialize()
 data = pd.read_excel('data/诉求数据汇总.xlsx')
@@ -103,6 +102,5 @@ for i in range(len(all_content['id'])):
     else:
         all_content['tool'].append('none')
 
-with open('data/content_suqiu_t.json', 'w') as file:
-    json_data = ujson.dumps(all_content, ensure_ascii=False)
-    file.write(json_data)
+df = pd.DataFrame(all_content)
+df.to_excel("hello.xlsx")
