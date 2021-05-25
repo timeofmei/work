@@ -5,12 +5,12 @@ data = pd.read_excel('this.xlsx')
 headers = ["结果认同-29", "结果认同-30", "结果认同-32"]
 
 all_content = {}
-
+modifier = 1.2
 for header in headers:
     all_content[header] = list(data[header])
 for i in range(len(all_content["结果认同-29"])):
     try:
-        all_content["结果认同-29"][i] = round(sigmoid(all_content["结果认同-29"][i]) * 10, 4)
+        all_content["结果认同-29"][i] = round(sigmoid(all_content["结果认同-29"][i] - modifier) * 10, 4)
 
     except:
         if all_content["结果认同-29"][i] == "比较认同":
@@ -19,7 +19,7 @@ for i in range(len(all_content["结果认同-29"])):
             all_content["结果认同-29"][i] = 8
 for i in range(len(all_content["结果认同-30"])):
     try:
-         all_content["结果认同-30"][i] = round(sigmoid(all_content["结果认同-30"][i]) * 10, 4)
+         all_content["结果认同-30"][i] = round(sigmoid(all_content["结果认同-30"][i] - modifier) * 10, 4)
     except:
         if all_content["结果认同-30"][i] == "比较认同":
             all_content["结果认同-30"][i] = 2
@@ -27,7 +27,7 @@ for i in range(len(all_content["结果认同-30"])):
             all_content["结果认同-30"][i] = 8
 for i in range(len(all_content["结果认同-32"])):
     try:
-        all_content["结果认同-32"][i] = round(sigmoid(all_content["结果认同-32"][i]) * 10, 4)
+        all_content["结果认同-32"][i] = round(sigmoid(all_content["结果认同-32"][i] - modifier) * 10, 4)
     except:
         if all_content["结果认同-32"][i] == "影响较大":
             all_content["结果认同-32"][i] = 2
